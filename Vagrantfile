@@ -81,6 +81,9 @@ $script = <<SCRIPT
 # パッケージの更新
 sudo apt-get update
 
+# Gitのインストール
+sudo apt-get install -y git
+
 # HTTPS利用のためのパッケージをインストール
 sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
 

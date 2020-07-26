@@ -83,6 +83,18 @@ $script = <<SCRIPT
 # パッケージの更新
 sudo apt-get update
 
+# 日本語環境の作成
+sudo locale-gen ja_JP.UTF-8
+
+# 起動時に日本語設定で起動する
+echo export LANG=ja_JP.UTF-8 >> ~/.profile
+
+# デフォルトのタイムゾーンUTC ⇒ JSTに変更する
+sudo timedatectl set-timezone Asia/Tokyo
+
+# マニュアルを日本語化
+sudo apt-get install -y manpages-ja manpages-ja-dev
+
 # Gitのインストール
 sudo apt-get install -y git
 

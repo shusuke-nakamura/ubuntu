@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "bento/ubuntu-18.04"
+  config.vm.box = "bento/ubuntu-20.04"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -99,7 +99,7 @@ sudo apt-get install -y manpages-ja manpages-ja-dev
 sudo apt-get install -y git
 
 # HTTPS利用のためのパッケージをインストール
-sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 
 # Docker公式の GPG を追加
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -115,7 +115,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 
 # Docker CE のインストール
-sudo apt-get install -y docker-ce
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
 ######################################################################
 # Docker Compose のインストール
@@ -123,7 +123,7 @@ sudo apt-get install -y docker-ce
 
 # Docker compose のダウンロード
 # ※適宜 https://github.com/docker/compose/releases の最新バージョンへ書き換えてください
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 # 実行権限の付与
 sudo chmod +x /usr/local/bin/docker-compose

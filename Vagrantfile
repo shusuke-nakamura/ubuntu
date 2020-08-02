@@ -87,7 +87,11 @@ sudo apt-get update
 sudo locale-gen ja_JP.UTF-8
 
 # 起動時に日本語設定で起動する
-echo export LANG=ja_JP.UTF-8 >> ~/.profile
+LOCALE_SETTING=`grep ja_JP.UTF-8 ~/.profile | wc -l`
+if [ $LOCALE_SETTING -eq 0 ]
+then
+    echo export LANG=ja_JP.UTF-8 >> ~/.profile
+fi
 
 # デフォルトのタイムゾーンUTC ⇒ JSTに変更する
 sudo timedatectl set-timezone Asia/Tokyo
@@ -132,4 +136,39 @@ sudo chmod +x /usr/local/bin/docker-compose
 # vagrant ユーザーを docker グループへ追加
 
 sudo usermod -aG docker vagrant
+
+######################################################################
+# ruby
+# 必要なツール、パッケージの導入
+sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+# rbenvのインストール
+if  [ ! -d ~/.rbenv ]
+then
+    git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+    git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+    # rbenv の環境設定
+    echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+    echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+fi
+if [ -e ~/.rbenv/bin/rbenv ]
+then
+  export PATH="/home/vagrant/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+  # rubyのインストール
+  rbenv install 2.7.1
+  rbenv global 2.7.1
+  rbenv rehash  
+fi
+######################################################################
+# python
+# 必要なツール、パッケージの導入
+sudo apt-get install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libreadline-dev libsqlite3-dev
+# pyenvのインストール
+if [ ! -d ~/.pyenv ]
+then
+    git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+    echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+    echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+fi
 SCRIPT

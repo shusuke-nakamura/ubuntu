@@ -141,6 +141,7 @@ sudo usermod -aG docker vagrant
 # ruby
 # 必要なツール、パッケージの導入
 sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+RUBY_INSTALL_VERSION=2.7.1
 # rbenvのインストール
 if  [ ! -d ~/.rbenv ]
 then
@@ -155,14 +156,19 @@ then
   export PATH="/home/vagrant/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
   # rubyのインストール
-  rbenv install 2.7.1
-  rbenv global 2.7.1
-  rbenv rehash  
+  RUBY_INSTALLED_VERSION=`rbenv versions | grep $RUBY_INSTALL_VERSION | wc -l`
+  if [ $RUBY_INSTALLED_VERSION -eq 0 ]
+  then
+      rbenv install $RUBY_INSTALL_VERSION
+      rbenv global $RUBY_INSTALL_VERSION
+      rbenv rehash
+  fi
 fi
 ######################################################################
 # python
 # 必要なツール、パッケージの導入
 sudo apt-get install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libreadline-dev libsqlite3-dev
+PYTHON_INSTALL_VERSION=3.8.5
 # pyenvのインストール
 if [ ! -d ~/.pyenv ]
 then
@@ -170,5 +176,44 @@ then
     echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
     echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
     echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+fi
+if [ -e ~/.pyenv/bin/pyenv ]
+then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    # pythonのインストール
+    PYTHON_INSTALLED_VERSION=`pyenv versions | grep $PYTHON_INSTALL_VERSION | wc -l`
+    if [ $PYTHON_INSTALLED_VERSION -eq 0 ]
+    then
+        pyenv install $PYTHON_INSTALL_VERSION
+        pyenv global $PYTHON_INSTALL_VERSION
+    fi
+fi
+######################################################################
+# php
+# phpenvのインストール
+# 必要なツール、パッケージの導入
+sudo apt-get install -y pkg-config libxml2-dev libkrb5-dev libcurl4-openssl-dev libpng-dev libjpeg-dev libonig-dev libtidy-dev libxslt1-dev libzip-dev
+PHP_INSTALL_VERSION=7.4.8
+if [ ! -d ~/.phpenv ]
+then
+    git clone git://github.com/phpenv/phpenv.git ~/.phpenv
+    git clone git://github.com/php-build/php-build.git ~/.phpenv/plugins/php-build
+    echo 'export PATH="$HOME/.phpenv/bin:$PATH"' >> ~/.bashrc	
+    echo 'eval "$(phpenv init -)"' >> ~/.bashrc
+    sudo sh ~/.phpenv/plugins/php-build/install.sh
+fi
+if [ -d ~/.phpenv/plugins/php-build ]
+then
+    export PATH="$HOME/.phpenv/bin:$PATH"
+    eval "$(phpenv init -)"
+    # phpのインストール
+    PHP_INSTALLED_VERSION=`phpenv versions | grep $PHP_INSTALL_VERSION | wc -l`
+    if [ PHP_INSTALLED_VERSION -eq 0 ]
+    then
+        phpenv install $PHP_INSTALL_VERSION
+        phpenv global $PHP_INSTALL_VERSION
+    fi
 fi
 SCRIPT

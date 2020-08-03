@@ -200,7 +200,7 @@ if [ ! -d ~/.phpenv ]
 then
     git clone https://github.com/phpenv/phpenv.git ~/.phpenv
     git clone https://github.com/php-build/php-build.git ~/.phpenv/plugins/php-build
-    echo 'export PATH="$HOME/.phpenv/bin:$PATH"' >> ~/.bashrc	
+    echo 'export PATH="$HOME/.phpenv/bin:$PATH"' >> ~/.bashrc
     echo 'eval "$(phpenv init -)"' >> ~/.bashrc
     sudo sh ~/.phpenv/plugins/php-build/install.sh
 fi
@@ -215,5 +215,21 @@ then
         phpenv install $PHP_INSTALL_VERSION
         phpenv global $PHP_INSTALL_VERSION
     fi
+fi
+######################################################################
+# node.jsのインストール
+# nodebrewのインストール
+NODE_JS_INSTALL_VERSION=v12.18.3
+if [ ! -d ~/.nodebrew ]
+then
+    curl -L git.io/nodebrew | perl - setup
+    echo 'export PATH="$HOME/.nodebrew/current/bin:$PATH"' >> ~/.bashrc
+fi
+export PATH="$HOME/.nodebrew/current/bin:$PATH"
+NODE_JS_INSTALLED_VERSION=`nodebrew list | grep v12.18.3 | wc -l`
+if [ $NODE_JS_INSTALLED_VERSION -eq 0 ]
+then
+    nodebrew install-binary $NODE_JS_INSTALL_VERSION
+    nodebrew use $NODE_JS_INSTALL_VERSION
 fi
 SCRIPT

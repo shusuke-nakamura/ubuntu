@@ -198,8 +198,8 @@ sudo apt-get install -y pkg-config libxml2-dev libkrb5-dev libcurl4-openssl-dev 
 PHP_INSTALL_VERSION=7.4.8
 if [ ! -d ~/.phpenv ]
 then
-    git clone git://github.com/phpenv/phpenv.git ~/.phpenv
-    git clone git://github.com/php-build/php-build.git ~/.phpenv/plugins/php-build
+    git clone https://github.com/phpenv/phpenv.git ~/.phpenv
+    git clone https://github.com/php-build/php-build.git ~/.phpenv/plugins/php-build
     echo 'export PATH="$HOME/.phpenv/bin:$PATH"' >> ~/.bashrc	
     echo 'eval "$(phpenv init -)"' >> ~/.bashrc
     sudo sh ~/.phpenv/plugins/php-build/install.sh
@@ -210,7 +210,7 @@ then
     eval "$(phpenv init -)"
     # phpのインストール
     PHP_INSTALLED_VERSION=`phpenv versions | grep $PHP_INSTALL_VERSION | wc -l`
-    if [ PHP_INSTALLED_VERSION -eq 0 ]
+    if [ $PHP_INSTALLED_VERSION -eq 0 ]
     then
         phpenv install $PHP_INSTALL_VERSION
         phpenv global $PHP_INSTALL_VERSION

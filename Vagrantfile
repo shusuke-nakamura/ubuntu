@@ -140,7 +140,7 @@ sudo usermod -aG docker vagrant
 ######################################################################
 # ruby
 # 必要なツール、パッケージの導入
-sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev imagemagick sqlite3 libsqlite3-dev
 RUBY_INSTALL_VERSION=2.7.1
 # rbenvのインストール
 if  [ ! -d ~/.rbenv ]
@@ -232,4 +232,12 @@ then
     nodebrew install-binary $NODE_JS_INSTALL_VERSION
     nodebrew use $NODE_JS_INSTALL_VERSION
 fi
+######################################################################
+# yarnのインストール
+YARN_INSTALLED=`npm ls -g | grep yarn | wc -l`
+if [ $YARN_INSTALLED -eq 0 ]
+then
+    npm install -g yarn
+fi
+
 SCRIPT

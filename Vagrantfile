@@ -30,6 +30,7 @@ Vagrant.configure("2") do |config|
   # via 127.0.0.1 to disable public access
   config.vm.network "forwarded_port", guest: 22, host: 1234, id: 'ssh'
   config.vm.network "forwarded_port", guest: 80, host: 10080, id: 'apache'
+  config.vm.network "forwarded_port", guest: 3306, host: 13306, id: 'mariadb'
   
   config.ssh.insert_key = false
   config.ssh.username = 'vagrant'
@@ -279,6 +280,15 @@ if [ -d /var/www/html ]
 then
     sudo rm -rf /var/www/html
     sudo ln -s /home/vagrant/work/html /var/www/html
+fi
+######################################################################
+# mariadbのインストール
+# https://qiita.com/mwatanabe@github/items/7e9a40d31bc27ab9d901
+# https://qiita.com/nanbuwks/items/c98c51744bd0f72a7087
+MARIADB_INSTALLED=`sudo dpkg -l mariadb-server | grep mariadb-server | wc -l`
+if [ $MARIADB_INSTALLED -eq 0 ]
+then
+    sudo apt-get install -y mariadb-server
 fi
 
 SCRIPT

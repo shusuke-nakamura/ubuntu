@@ -29,6 +29,7 @@ Vagrant.configure("2") do |config|
   # within the machine from a port on the host machine and only allow access
   # via 127.0.0.1 to disable public access
   config.vm.network "forwarded_port", guest: 22, host: 1234, id: 'ssh'
+  config.vm.network "forwarded_port", guest: 80, host: 10080, id: 'apache'
   
   config.ssh.insert_key = false
   config.ssh.username = 'vagrant'
@@ -260,6 +261,24 @@ then
     sudo systemctl daemon-reload
     sudo systemctl start mongod
     sudo systemctl enable mongod
+fi
+######################################################################
+# apache2のインストール
+APACHE2_INSTALLED=`sudo dpkg -l apache2 | grep apache2 | wc -l`
+if [ $APACHE2_INSTALLED -eq 0 ]
+then
+    sudo apt-get install -y apache2
+fi
+# ドキュメントルート(作業領域)を作成
+if [ ! -d ~/work/html ]
+then
+    mkdir -p ~/work/html
+fi
+# シンボリックリンクを作成
+if [ -d /var/www/html ]
+then
+    sudo rm -rf /var/www/html
+    sudo ln -s /home/vagrant/work/html /var/www/html
 fi
 
 SCRIPT

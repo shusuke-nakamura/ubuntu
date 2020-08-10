@@ -239,5 +239,27 @@ if [ $YARN_INSTALLED -eq 0 ]
 then
     npm install -g yarn
 fi
+######################################################################
+# mongodbのインストール
+# gnupg
+GNUPG_INSTALLED=`sudo dpkg -l gnupg | grep gnupg | wc -l`
+if [ $GNUPG_INSTALLED -eq 0 ]
+then
+    sudo apt-get install -y gnupg
+fi
+if [ ! -f /etc/apt/sources.list.d/mongodb-org-4.4.list ]
+then
+    wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+    sudo apt-get update
+fi
+MONGODB_INSTALLED=`sudo dpkg -l mongodb-org | grep mongodb | wc -l`
+if [ $MONGODB_INSTALLED -eq 0 ]
+then
+    sudo apt-get install -y mongodb-org
+    sudo systemctl daemon-reload
+    sudo systemctl start mongod
+    sudo systemctl enable mongod
+fi
 
 SCRIPT

@@ -271,15 +271,15 @@ then
     sudo apt-get install -y apache2
 fi
 # ドキュメントルート(作業領域)を作成
-if [ ! -d ~/work/html ]
+if [ ! -d /vagrant/www/html ]
 then
-    mkdir -p ~/work/html
+    mkdir -p /vagrant/www/html
 fi
 # シンボリックリンクを作成
 if [ -d /var/www/html ]
 then
     sudo rm -rf /var/www/html
-    sudo ln -s /home/vagrant/work/html /var/www/html
+    sudo ln -s /vagrant/www/html /var/www/html
 fi
 ######################################################################
 # mariadbのインストール

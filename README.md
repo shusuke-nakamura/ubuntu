@@ -1,38 +1,38 @@
-# ubuntu‚ÅRailsŠÂ‹«‚ğì¬‚µ‚Ü‚·
+# ubuntuã§Railsç’°å¢ƒã‚’ä½œæˆã—ã¾ã™
 
-y‘O’ñz
-EVirtualBox
-EVagrant
-ã‹LA2“_‚ªƒCƒ“ƒXƒg[ƒ‹Ï‚İ‚Å‚ ‚é‚±‚Æ
+ã€å‰æã€‘
+ãƒ»VirtualBox
+ãƒ»Vagrant
+ä¸Šè¨˜ã€2ç‚¹ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ¸ˆã¿ã§ã‚ã‚‹ã“ã¨
 
-yƒCƒ“ƒXƒg[ƒ‹è‡z
-yŠÇ—ÒŒ ŒÀ‚ÅƒRƒ}ƒ“ƒhƒvƒƒ“ƒvƒg‚ğ‹N“® --- STARTz
-Evagrant up --provision
-Evagrant halt
-Ecd C:\Windows\system32
-Efsutil behavior set SymlinkEvaluation L2L:1 R2R:1 L2R:1 R2L:1
-E"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list vms
-E"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" setextradata [VB–¼] VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant 1
-E"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" getextradata [VB–¼] enumerate
-Evagrant up
-yŠÇ—ÒŒ ŒÀ‚ÅƒRƒ}ƒ“ƒhƒvƒƒ“ƒvƒg‚ğ‹N“® --- ENDz
+ã€ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ‰‹é †ã€‘
+ã€ç®¡ç†è€…æ¨©é™ã§ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã‚’èµ·å‹• --- STARTã€‘
+ãƒ»vagrant up --provision
+ãƒ»vagrant halt
+ãƒ»cd C:\Windows\system32
+ãƒ»fsutil behavior set SymlinkEvaluation L2L:1 R2R:1 L2R:1 R2L:1
+ãƒ»"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" list vms
+ãƒ»"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" setextradata [VBå] VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant 1
+ãƒ»"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe" getextradata [VBå] enumerate
+ãƒ»vagrant up
+ã€ç®¡ç†è€…æ¨©é™ã§ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã‚’èµ·å‹• --- ENDã€‘
 
-ySSHÚ‘±‚ğs‚ÄÀsz
-Edocker-compose run web rails new . --force --no-deps --database=postgresql
-Edocker-compose build
-Edatebase.yml‚ğC³
-Edocker-compose run web rake db:create
-Edocker-compose up
+ã€SSHæ¥ç¶šã‚’è¡Œã¦å®Ÿè¡Œã€‘
+ãƒ»docker-compose run web rails new . --force --no-deps --database=postgresql
+ãƒ»docker-compose build
+ãƒ»datebase.ymlã‚’ä¿®æ­£
+ãƒ»docker-compose run web rake db:create
+ãƒ»docker-compose up
 
-yRails‰æ–Ê‚ğŠJ‚­z
+ã€Railsç”»é¢ã‚’é–‹ãã€‘
 http://192.168.33.10:3000/
 
-y”õlz
+ã€å‚™è€ƒã€‘
 docker-compose up -d
-(ƒf[ƒ‚ƒ“‚Æ‚µ‚Ä‹N“®‚·‚é)
+(ãƒ‡ãƒ¼ãƒ¢ãƒ³ã¨ã—ã¦èµ·å‹•ã™ã‚‹)
 docker-compose stop
-(ƒf[ƒ‚ƒ“‚ğ’â~‚·‚é)
+(ãƒ‡ãƒ¼ãƒ¢ãƒ³ã‚’åœæ­¢ã™ã‚‹)
 docker-compose exec web bash
-(WebƒT[ƒo‚ÉÚ‘±‚·‚é)
+(Webã‚µãƒ¼ãƒã«æ¥ç¶šã™ã‚‹)
 docker-compose exec db bash
-(DBƒT[ƒo‚ÉÚ‘±‚·‚é)
+(DBã‚µãƒ¼ãƒã«æ¥ç¶šã™ã‚‹)

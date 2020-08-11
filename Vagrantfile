@@ -31,6 +31,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 22, host: 1234, id: 'ssh'
   config.vm.network "forwarded_port", guest: 80, host: 10080, id: 'apache'
   config.vm.network "forwarded_port", guest: 3306, host: 13306, id: 'mariadb'
+  config.vm.network "forwarded_port", guest: 3000, host: 13000, id: 'rails'
   
   config.ssh.insert_key = false
   config.ssh.username = 'vagrant'

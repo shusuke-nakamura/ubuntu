@@ -159,7 +159,7 @@ then
   export PATH="/home/vagrant/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
   # rubyのインストール
-  RUBY_INSTALLED_VERSION=`rbenv versions | grep $RUBY_INSTALL_VERSION | wc -l`
+  RUBY_INSTALLED_VERSION=`rbenv versions --bare | grep $RUBY_INSTALL_VERSION | wc -l`
   if [ $RUBY_INSTALLED_VERSION -eq 0 ]
   then
       rbenv install $RUBY_INSTALL_VERSION

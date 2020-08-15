@@ -105,6 +105,9 @@ sudo apt-get install -y manpages-ja manpages-ja-dev
 # Gitのインストール
 sudo apt-get install -y git
 
+# Gitクライアントのインストール
+sudo apt-get install -y tig
+
 # HTTPS利用のためのパッケージをインストール
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 

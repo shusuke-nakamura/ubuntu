@@ -275,20 +275,23 @@ then
     sudo apt-get install -y apache2
 fi
 # ドキュメントルート(作業領域)を作成
-if [ ! -d /vagrant/www/html ]
+if [ ! -d ~/www/html ]
 then
-    mkdir -p /vagrant/www/html
+    mkdir -p ~/www/html
 fi
 # シンボリックリンクを作成
 if [ -d /var/www/html ]
 then
     sudo rm -rf /var/www/html
-    sudo ln -s /vagrant/www/html /var/www/html
+    sudo ln -s ~/www/html /var/www/html
 fi
 ######################################################################
 # mariadbのインストール
 # https://qiita.com/mwatanabe@github/items/7e9a40d31bc27ab9d901
 # https://qiita.com/nanbuwks/items/c98c51744bd0f72a7087
+# unix_socket の解除の仕方
+# update mysql.user set plugin='' where user='root';
+# mysql_secure_installation
 MARIADB_INSTALLED=`sudo dpkg -l mariadb-server | grep mariadb-server | wc -l`
 if [ $MARIADB_INSTALLED -eq 0 ]
 then

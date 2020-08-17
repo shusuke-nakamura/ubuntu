@@ -144,6 +144,25 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo usermod -aG docker vagrant
 
 ######################################################################
+# apache2のインストール
+APACHE2_INSTALLED=`sudo dpkg -l apache2 | grep apache2 | wc -l`
+if [ $APACHE2_INSTALLED -eq 0 ]
+then
+    sudo apt-get install -y apache2
+fi
+# ドキュメントルート(作業領域)を作成
+if [ ! -d ~/www/html ]
+then
+    mkdir -p ~/www/html
+fi
+# シンボリックリンクを作成
+if [ -d /var/www/html ]
+then
+    sudo rm -rf /var/www/html
+    sudo ln -s ~/www/html /var/www/html
+fi
+
+######################################################################
 # ruby
 # 必要なツール、パッケージの導入
 sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev imagemagick sqlite3 libsqlite3-dev
@@ -198,29 +217,12 @@ then
 fi
 ######################################################################
 # php
-# phpenvのインストール
 # 必要なツール、パッケージの導入
 sudo apt-get install -y pkg-config libxml2-dev libkrb5-dev libcurl4-openssl-dev libpng-dev libjpeg-dev libonig-dev libtidy-dev libxslt1-dev libzip-dev
-PHP_INSTALL_VERSION=7.4.8
-if [ ! -d ~/.phpenv ]
+PHP_INSTALLED=`sudo dpkg -l | grep php | wc -l`
+if [ $PHP_INSTALLED -eq 0 ]
 then
-    git clone https://github.com/phpenv/phpenv.git ~/.phpenv
-    git clone https://github.com/php-build/php-build.git ~/.phpenv/plugins/php-build
-    echo 'export PATH="$HOME/.phpenv/bin:$PATH"' >> ~/.bashrc
-    echo 'eval "$(phpenv init -)"' >> ~/.bashrc
-    sudo sh ~/.phpenv/plugins/php-build/install.sh
-fi
-if [ -d ~/.phpenv/plugins/php-build ]
-then
-    export PATH="$HOME/.phpenv/bin:$PATH"
-    eval "$(phpenv init -)"
-    # phpのインストール
-    PHP_INSTALLED_VERSION=`phpenv versions | grep $PHP_INSTALL_VERSION | wc -l`
-    if [ $PHP_INSTALLED_VERSION -eq 0 ]
-    then
-        phpenv install $PHP_INSTALL_VERSION
-        phpenv global $PHP_INSTALL_VERSION
-    fi
+    sudo apt-get install -y  php libapache2-mod-php
 fi
 ######################################################################
 # node.jsのインストール
@@ -266,24 +268,6 @@ then
     sudo systemctl daemon-reload
     sudo systemctl start mongod
     sudo systemctl enable mongod
-fi
-######################################################################
-# apache2のインストール
-APACHE2_INSTALLED=`sudo dpkg -l apache2 | grep apache2 | wc -l`
-if [ $APACHE2_INSTALLED -eq 0 ]
-then
-    sudo apt-get install -y apache2
-fi
-# ドキュメントルート(作業領域)を作成
-if [ ! -d ~/www/html ]
-then
-    mkdir -p ~/www/html
-fi
-# シンボリックリンクを作成
-if [ -d /var/www/html ]
-then
-    sudo rm -rf /var/www/html
-    sudo ln -s ~/www/html /var/www/html
 fi
 ######################################################################
 # mariadbのインストール

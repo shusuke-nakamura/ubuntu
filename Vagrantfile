@@ -30,7 +30,6 @@ Vagrant.configure("2") do |config|
   # via 127.0.0.1 to disable public access
   config.vm.network "forwarded_port", guest: 22, host: 1234, id: 'ssh'
   config.vm.network "forwarded_port", guest: 80, host: 10080, id: 'apache'
-  config.vm.network "forwarded_port", guest: 3306, host: 13306, id: 'mariadb'
   config.vm.network "forwarded_port", guest: 3000, host: 13000, id: 'rails'
   
   config.ssh.insert_key = false
@@ -223,6 +222,8 @@ PHP_INSTALLED=`sudo dpkg -l | grep php | wc -l`
 if [ $PHP_INSTALLED -eq 0 ]
 then
     sudo apt-get install -y  php libapache2-mod-php
+    sudo cp /vagrant/setting_files/php/202008/apache2/php.ini /etc/php/7.4/apache2/php.ini
+    sudo cp /vagrant/setting_files/php/202008/cli/php.ini /etc/php/7.4/cli/php.ini
 fi
 ######################################################################
 # node.jsのインストール
@@ -281,5 +282,4 @@ if [ $MARIADB_INSTALLED -eq 0 ]
 then
     sudo apt-get install -y mariadb-server
 fi
-
 SCRIPT

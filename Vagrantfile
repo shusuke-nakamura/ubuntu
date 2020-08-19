@@ -222,8 +222,17 @@ PHP_INSTALLED=`sudo dpkg -l | grep php | wc -l`
 if [ $PHP_INSTALLED -eq 0 ]
 then
     sudo apt-get install -y  php libapache2-mod-php
+    if [ ! -f /vagrant/setting_files/php/default/apache2/php.ini ]
+    then
+        sudo cp -p /etc/php/7.4/apache2/php.ini /vagrant/setting_files/php/default/apache2/php.ini
+    fi
+    if [ ! -f /vagrant/setting_files/php/default/cli/php.ini ]
+    then
+        sudo cp -p /etc/php/7.4/cli/php.ini /vagrant/setting_files/php/default/cli/php.ini
+    fi
     sudo cp /vagrant/setting_files/php/202008/apache2/php.ini /etc/php/7.4/apache2/php.ini
     sudo cp /vagrant/setting_files/php/202008/cli/php.ini /etc/php/7.4/cli/php.ini
+
 fi
 ######################################################################
 # node.jsのインストール
@@ -282,4 +291,24 @@ if [ $MARIADB_INSTALLED -eq 0 ]
 then
     sudo apt-get install -y mariadb-server
 fi
+######################################################################
+# xdebugのインストール
+XDEBUG_INSTALLED=`sudo dpkg -l | grep php-xdebug | wc -l`
+if [ $XDEBUG_INSTALLED -eq 0 ]
+then
+    sudo apt-get install -y php-xdebug
+fi
+XDEBUG_APACHE=`grep xdebug /etc/php/7.4/apache2/php.ini | wc -l`
+XDEBUG_CLI=`grep xdebug /etc/php/7.4/cli/php.ini | wc -l`
+
+if [ $XDEBUG_APACHE -eq 0 ]
+then
+    sudo cp /vagrant/setting_files/php/202008/apache2/xdebug/php.ini /etc/php/7.4/apache2/php.ini
+fi
+
+if [ $XDEBUG_CLI -eq 0 ]
+then
+    sudo cp /vagrant/setting_files/php/202008/cli/xdebug/php.ini /etc/php/7.4/cli/php.ini
+fi
+
 SCRIPT

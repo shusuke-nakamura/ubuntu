@@ -13,6 +13,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "bento/ubuntu-20.04"
+  config.vm.box_version = "202008.16.0"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -32,9 +33,9 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 80, host: 10080, id: 'apache'
   config.vm.network "forwarded_port", guest: 3000, host: 13000, id: 'rails'
   
-  config.ssh.insert_key = false
-  config.ssh.username = 'vagrant'
-  config.ssh.password = 'vagrant'
+  #config.ssh.insert_key = false
+  #config.ssh.username = 'vagrant'
+  #config.ssh.password = 'vagrant'
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.

@@ -1,4 +1,32 @@
-# ubuntuでRails環境を作成します
+# ubuntuでローカルの開発環境を作成します。
+
+【前提】
+・VirtualBox
+・Vagrant
+・VScode(Remote Development プライグイン)
+
+【インストール手順】
+vagrant up --provision
+vagrant ssh-config >> ~/.ssh/config
+
+【git】
+git config --global user.name "【ユーザー名】"
+git config --global user.email 【メールアドレス】
+git config --global core.editor 'vim -c "set fenc=utf-8"'
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+(/home/vagrant/.ssh/id_rsa_github)
+
+vim ~/.ssh/config
+Host github
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/id_rsa_github
+
+【rails】
+gem install rails -v 6.0.3
+
+
+# ubuntuでRails環境を作成します(Docker)
 
 【前提】
 ・VirtualBox

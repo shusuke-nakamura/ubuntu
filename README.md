@@ -25,6 +25,51 @@ Host github
 【rails】
 gem install rails -v 6.0.3
 
+【mariadb】
+sudo mysql
+ update mysql.user set plugin='' where user='root';
+ 
+sudo mysql_secure_installation
+
+【python】
+vagrant@vagrant:~/work$ pip list
+Package    Version
+---------- -------
+pip        20.1.1
+setuptools 47.1.0
+WARNING: You are using pip version 20.1.1; however, version 20.2.2 is available.
+You should consider upgrading via the '/home/vagrant/.pyenv/versions/3.8.5/bin/python3.8 -m pip install --upgrade pip' command.
+vagrant@vagrant:~/work$ which python
+/home/vagrant/.pyenv/shims/python
+vagrant@vagrant:~/work$ /home/vagrant/.pyenv/versions/3.8.5/bin/python3.8 -m pip install --upgrade pip
+Collecting pip
+  Downloading pip-20.2.2-py2.py3-none-any.whl (1.5 MB)
+     |████████████████████████████████| 1.5 MB 695 kB/s
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 20.1.1
+    Uninstalling pip-20.1.1:
+      Successfully uninstalled pip-20.1.1
+Successfully installed pip-20.2.2
+vagrant@vagrant:~/work$ pip list
+Package    Version
+---------- -------
+pip        20.2.2
+setuptools 47.1.0
+vagrant@vagrant:~/work$ pip list
+Package           Version
+----------------- -------
+astroid           2.4.2
+isort             5.4.2
+lazy-object-proxy 1.4.3
+mccabe            0.6.1
+pip               20.2.2
+pylint            2.6.0
+setuptools        47.1.0
+six               1.15.0
+toml              0.10.1
+wrapt             1.12.1
+
 
 # ubuntuでRails環境を作成します(Docker)
 

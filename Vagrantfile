@@ -222,7 +222,7 @@ sudo apt-get install -y pkg-config libxml2-dev libkrb5-dev libcurl4-openssl-dev 
 PHP_INSTALLED=`sudo dpkg -l | grep php | wc -l`
 if [ $PHP_INSTALLED -eq 0 ]
 then
-    sudo apt-get install -y  php libapache2-mod-php
+    sudo apt-get install -y  php libapache2-mod-php php-gd php-xml php-cli php-mbstring php-soap php-xmlrpc php-zip
     if [ ! -f /vagrant/setting_files/php/default/apache2/php.ini ]
     then
         sudo cp -p /etc/php/7.4/apache2/php.ini /vagrant/setting_files/php/default/apache2/php.ini
@@ -310,6 +310,17 @@ fi
 if [ $XDEBUG_CLI -eq 0 ]
 then
     sudo cp /vagrant/setting_files/php/202008/cli/xdebug/php.ini /etc/php/7.4/cli/php.ini
+fi
+######################################################################
+# composerのインストール
+# https://mebee.info/2020/06/02/post-10844/
+if [ ! -f /usr/local/bin/composer ]
+then
+   curl -sS https://getcomposer.org/installer | php
+   sudo mv composer.phar /usr/local/bin/composer
+   sudo chmod +x /usr/local/bin/composer
+   sudo chown root:root /usr/local/bin/composer
+   source ~/.bashrc
 fi
 
 SCRIPT

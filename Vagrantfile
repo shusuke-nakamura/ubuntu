@@ -322,5 +322,17 @@ then
    sudo chown root:root /usr/local/bin/composer
    source ~/.bashrc
 fi
+######################################################################
+# Visual Studio コードは、この大きなワークスペースでのファイルの変更を監視できません
+# https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+# cat /proc/sys/fs/inotify/max_user_watches ⇒ 現在の設定値
+# fs.inotify.max_user_watches=524288 ⇒ MAX値に設定
+SET_MAX_USER_WATCHES=`sudo grep fs.inotify.max_user_watches /etc/sysctl.conf | wc -l`
+if [ $SET_MAX_USER_WATCHES -eq 0 ]
+then
+    sudo cp -p /etc/sysctl.conf /vagrant/sysctl.conf
+    sudo sh -c 'echo fs.inotify.max_user_watches=524288 >> /etc/sysctl.conf'
+    sudo sysctl -p
+fi
 
 SCRIPT

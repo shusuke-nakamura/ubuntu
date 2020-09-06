@@ -222,7 +222,7 @@ sudo apt-get install -y pkg-config libxml2-dev libkrb5-dev libcurl4-openssl-dev 
 PHP_INSTALLED=`sudo dpkg -l | grep php | wc -l`
 if [ $PHP_INSTALLED -eq 0 ]
 then
-    sudo apt-get install -y  php libapache2-mod-php php-gd php-xml php-cli php-mbstring php-soap php-xmlrpc php-zip
+    sudo apt-get install -y  php libapache2-mod-php php-gd php-xml php-cli php-mbstring php-soap php-xmlrpc php-zip php-bcmath
     if [ ! -f /vagrant/setting_files/php/default/apache2/php.ini ]
     then
         sudo cp -p /etc/php/7.4/apache2/php.ini /vagrant/setting_files/php/default/apache2/php.ini

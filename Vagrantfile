@@ -161,7 +161,13 @@ then
     sudo rm -rf /var/www/html
     sudo ln -s ~/www/html /var/www/html
 fi
-
+######################################################################
+# sendmailのインストール
+SEND_MAIL_INSTALLED=`sudo dpkg -l | grep sendmail | wc -l`
+if [ $SEND_MAIL_INSTALLED -eq 0 ]
+then
+    sudo apt-get install -y sendmail
+fi
 ######################################################################
 # ruby
 # 必要なツール、パッケージの導入
@@ -311,6 +317,21 @@ if [ $XDEBUG_CLI -eq 0 ]
 then
     sudo cp /vagrant/setting_files/php/202008/cli/xdebug/php.ini /etc/php/7.4/cli/php.ini
 fi
+######################################################################
+# PHP_INI_SEND_MAIL
+SEND_MAIL_APACHE=`grep ";sendmail_path" /etc/php/7.4/apache2/php.ini | wc -l`
+SEND_MAIL_CLI=`grep ";sendmail_path" /etc/php/7.4/cli/php.ini | wc -l`
+
+if [ $SEND_MAIL_APACHE -eq 1 ]
+then
+    sudo cp /vagrant/setting_files/php/202008/apache2/sendmail/php.ini /etc/php/7.4/apache2/php.ini
+fi
+
+if [ $SEND_MAIL_CLI -eq 1 ]
+then
+    sudo cp /vagrant/setting_files/php/202008/cli/sendmail/php.ini /etc/php/7.4/cli/php.ini
+fi
+
 ######################################################################
 # composerのインストール
 # https://mebee.info/2020/06/02/post-10844/

@@ -344,6 +344,24 @@ then
    source ~/.bashrc
 fi
 ######################################################################
+# Open JDKのインストール
+######################################################################
+OPEN_JDK_INSTALLED=`sudo dpkg -l | grep openjdk-11-jdk | wc -l`
+if [ $OPEN_JDK_INSTALLED -eq 0 ]
+then
+   sudo apt-get install -y openjdk-11-jdk
+fi
+######################################################################
+# graphvizのインストール
+######################################################################
+GRAPHVIZ_INSTALLED=`sudo dpkg -l | grep graphviz | wc -l`
+if [ $GRAPHVIZ_INSTALLED -eq 0 ]
+then
+   sudo apt-get install -y graphviz
+fi
+
+
+######################################################################
 # Visual Studio コードは、この大きなワークスペースでのファイルの変更を監視できません
 # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
 # cat /proc/sys/fs/inotify/max_user_watches ⇒ 現在の設定値

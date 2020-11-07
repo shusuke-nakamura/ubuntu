@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "bento/ubuntu-20.04"
-  config.vm.box_version = "202008.16.0"
+  config.vm.box_version = "202010.24.0"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -108,6 +108,9 @@ sudo apt-get install -y git
 # Gitクライアントのインストール
 sudo apt-get install -y tig
 
+# expectのインストール
+sudo apt-get install -y expect
+
 # HTTPS利用のためのパッケージをインストール
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
 
@@ -172,7 +175,7 @@ fi
 # ruby
 # 必要なツール、パッケージの導入
 sudo apt-get install -y autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev imagemagick sqlite3 libsqlite3-dev
-RUBY_INSTALL_VERSION=2.7.1
+RUBY_INSTALL_VERSION=2.7.2
 # rbenvのインストール
 if  [ ! -d ~/.rbenv ]
 then
@@ -199,7 +202,7 @@ fi
 # python
 # 必要なツール、パッケージの導入
 sudo apt-get install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libreadline-dev libsqlite3-dev
-PYTHON_INSTALL_VERSION=3.8.5
+PYTHON_INSTALL_VERSION=3.9.0
 # pyenvのインストール
 if [ ! -d ~/.pyenv ]
 then
@@ -244,14 +247,14 @@ fi
 ######################################################################
 # node.jsのインストール
 # nodebrewのインストール
-NODE_JS_INSTALL_VERSION=v12.18.3
+NODE_JS_INSTALL_VERSION=v14.15.0
 if [ ! -d ~/.nodebrew ]
 then
     curl -L git.io/nodebrew | perl - setup
     echo 'export PATH="$HOME/.nodebrew/current/bin:$PATH"' >> ~/.bashrc
 fi
 export PATH="$HOME/.nodebrew/current/bin:$PATH"
-NODE_JS_INSTALLED_VERSION=`nodebrew list | grep v12.18.3 | wc -l`
+NODE_JS_INSTALLED_VERSION=`nodebrew list | grep $NODE_JS_INSTALL_VERSION | wc -l`
 if [ $NODE_JS_INSTALLED_VERSION -eq 0 ]
 then
     nodebrew install-binary $NODE_JS_INSTALL_VERSION
@@ -351,6 +354,24 @@ if [ $OPEN_JDK_INSTALLED -eq 0 ]
 then
    sudo apt-get install -y openjdk-11-jdk
 fi
+# JAVA_HOMEの設定
+ENV_JAVA_HOME=`env | grep JAVA_HOME | wc -l`
+BASHRC_JAVA_HOME=`grep JAVA_HOME ~/.bashrc | wc -l`
+if [ $ENV_JAVA_HOME -eq 0 ] && [ $BASHRC_JAVA_HOME -eq 0 ]
+then
+    echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64' >> ~/.bashrc
+    source ~/.bashrc
+fi
+
+######################################################################
+# gradleのインストール
+######################################################################
+GRADLE_INSTALLED=`sudo dpkg -l | grep gradle | wc -l`
+if [ $GRADLE_INSTALLED -eq 0 ]
+then
+    sudo apt-get install -y gradle
+fi
+
 ######################################################################
 # graphvizのインストール
 ######################################################################

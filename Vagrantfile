@@ -202,7 +202,7 @@ fi
 # python
 # 必要なツール、パッケージの導入
 sudo apt-get install -y build-essential libffi-dev libssl-dev zlib1g-dev liblzma-dev libbz2-dev libreadline-dev libsqlite3-dev
-PYTHON_INSTALL_VERSION=3.9.0
+PYTHON_INSTALL_VERSION=anaconda3-2020.07
 # pyenvのインストール
 if [ ! -d ~/.pyenv ]
 then

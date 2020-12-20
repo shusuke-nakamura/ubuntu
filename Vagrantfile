@@ -71,6 +71,8 @@ Vagrant.configure("2") do |config|
     vb.memory = "1024"
     vb.cpus = "2"
     vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/vagrant", "1"]
+    vb.customize ["modifyvm", :id, "--nictype1",  "virtio"]
+    vb.customize ["modifyvm", :id, "--nictype2",  "virtio"]
   end
 
   # Enable provisioning with a shell script. Additional provisioners such as
